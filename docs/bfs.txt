@@ -1,0 +1,15 @@
+graph G = (V, E)
+
+
+
+BFS
+-visit all nodes reachable from given node.
+- O(V + E) time
+-careful to avoid cycles
+
+2 dicts: parent and level
+iterate over all child nodes of source node recursively, add
+their parent to the parent dict, their level to the level dict 
+in it's respective keys in the dicts.
+
+

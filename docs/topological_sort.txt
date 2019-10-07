@@ -1,0 +1,7 @@
+TOPOLOGICAL SORT
+
+given DAG, order vertices so that all edes point from lower to higher.
+order the vertices such that for every egde (u,v) , v comes after u.
+
+* run DFS
+* output reverse of finishing times of vertices.

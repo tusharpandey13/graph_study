@@ -1,0 +1,21 @@
+recursively explore graph, backtracking as necessary
+
+
+to visit all vertices reachable from a giver source vertex S:
+
+parent = {}
+DFS-Visit(_, adj, S):
+	for v in adj[S]:
+		if v not in parent:
+			parent[v] = s
+			DFS-Visit(_, adj, S)
+
+
+this is a general algo for visiting *ALL* the vertices in the graph:
+
+DFS(V, adj):
+	parent = {}
+	for s in V:
+		if s not in parent:
+			parent[s] = None
+			DFS-Visit(_, adj, s)

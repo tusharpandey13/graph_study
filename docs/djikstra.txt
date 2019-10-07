@@ -1,0 +1,11 @@
+Pseudo-code
+
+Dijkstra (G, W, s) //uses priority queue Q
+	Initialize (G, s)
+	S ← φ
+	Q ← V [G] //Insert into Q
+	while Q not= φ
+		do u ← EXTRACT-MIN(Q) //deletes u from Q
+		S = S ∪ {u}
+		for each vertex v in Adj[u]
+			do RELAX (u, v, w) // implicit DECREASE KEY op.

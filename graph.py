@@ -1,23 +1,33 @@
-# directed graph
+# directed acyclic graph
 class graph:
-    def __init__(self):
-        self._graph = {}
+    def __init__(self, adj={}):
+        self.adj = adj
+
+    def setgraph(self, adj):
+        self.adj = adj
 
     def addnode(self, node, adjlist):
-        self._graph[node] = adjlist
+        self.adj[node] = adjlist
+        for e in adjlist:
+            if e not in self.adj.keys():
+                self.addnode(e, [])
 
     def addedge(self, node1, node2):
-        if node1 not in self._graph.keys():
-            self._graph[node1] = [node2]
+        if node1 not in self.adj.keys():
+            self.adj[node1] = [node2]
         else:
-            self._graph[node1].append(node2)
-            if node2 not in self._graph.keys():
-                self._graph[node2] = []
+            self.adj[node1].append(node2)
+            if node2 not in self.adj.keys():
+                self.adj[node2] = []
 
-    def print(self):
-        for n in self._graph.keys():
-            print(n, self._graph[n])
-        pass
+    def print(self, adj=None):
+        if adj is None:
+            print(self.adj)
+        else:
+            print(adj)
+        # for n in self.adj.keys():
+        #     print(n, self.adj[n])
+        # pass
 
     def find_path(self, start, end, path=[]):
         path.append(start)
@@ -29,26 +39,32 @@ class graph:
         if start == end:
             # path += [end]
             return path
-        if start not in self._graph.keys():
+        if start not in self.adj.keys():
             return None
-        for n in self._graph[start]:
+        for n in self.adj[start]:
             if n not in path:
                 tmp = self.find_path(n, end, path)
                 if tmp is not None:
                     return tmp
         return None
 
+    def dfs_r(self, S, time, count):
+        if S not in time:
+            for u in self.adj[S]:
+                if u not in time:
+                    self.dfs_r(u, time, count)
+            count[0] += 1
+            # print("  ", S, count[0])
+            time[S] = count[0]
 
-g = graph()
-g.addnode('a', [])
-g.addedge('a', 'b0')
-g.addedge('b0', 'c0')
-g.addedge('c0', 'd0')
-g.addedge('a', 'b1')
-# g.addedge('a', 'c')
-g.addedge('b1', 'c')
-g.addedge('c', 'd')
-g.addedge('d', 'e')
+    # TODO: return parents
+    def dfs(self):
+        time = {}
+        count = [0]
+        for v in list(self.adj.keys()):
+            # print(v)
+            self.dfs_r(v, time, count)
+        return time
 
-# g.print()
-print(g.find_path('a', 'e'))
+    def topological_sort(self):
+        return sorted(self.dfs().items(), key=lambda x: x[1], reverse=True)

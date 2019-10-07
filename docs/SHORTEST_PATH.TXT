@@ -1,0 +1,76 @@
+SHORTEST PATHS
+
+G(V, E, W)
+
+G : Graph
+V : Vertices
+E : Edges
+W : Weights
+
+
+2 ALGOS
+
+ * Dijkstra : non negative weight edges
+ 	0(V*lg(V) + E)
+ 	E = 0(V^2)
+ 	E generally is greater than V*lg(V) so can be thought as
+ 	having a linear time complexity wrt E.
+ 
+ * Belman-Ford: positive and negative weight edges
+ 	0(V*E)
+ 	could be V^3 time as E could be V^2
+ 
+ 
+path p = <v0, v1, ... vk>
+  a path is a sequence of edges, all of which are in the set of
+  edges E.
+	if  vi, vi+1 in E for i in [0, k]
+	
+  weight of the path is the summation of wts of all edges in
+  the path
+    w(p) = sigma( w(wi, vi+1)) from i=0 to k-1
+    
+    
+    
+Shortest Path:
+	find p with minimum w(p)
+  
+  
+for both these(and other practical) algos, 0 is not a fn. of w.
+ie. the dynamic range of w does not affect the 0.
+this is not true for bfs and dfs that's why we don't use them
+with weighted edges.
+
+
+WEIGHTED GRAPHS
+
+v0 ---P---> vK
+where P is the path
+
+shortest path has the min sigman weight of all.
+
+			|	min[ w(p) : u --P--> v ]	for some path
+del(u, v) =	|
+			|	infinite					else
+			
+initially, every path has del=infinity, we try to reduce these.
+
+
+NEGATIVE WEIGHTS - BELLMAN FORD
+
+negative weighted edges can cause negative cycles.
+
+					-6
+A-------B--------C--------D
+	2		4	 |3		  |2
+				 F--------E
+				 	2
+				 	
+here, the cycle CDEF has a net weight of -1.
+you could arrive at C from A and say the del(A, C) would be 6 but that's false as you could loop and get del(A, C) as 5 and then 4 and then 3 and so on.....till -infinity.
+
+try to convert negative weights to positive by shifting as djikstra has better time complexity wrt bf.
+
+
+RELAXATION
+replace the del(u,v) of v if you find a p with lesser w

@@ -1,0 +1,3 @@
+CYCLE DETECTION
+
+if 1 back edge exists then atleast 1 cycle exists.

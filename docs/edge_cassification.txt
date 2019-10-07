@@ -1,0 +1,43 @@
+EDGE CLASSIFICATION
+
+
+1. TREE EDGE:
+	(parent pointer tells which edges are tree edges) 
+	visit new vertex via edge (bold lines)
+
+-the nodes of tree edges make a tree
+-the tree can actually be a forest
+
+
+2. FWD EDGE:
+	node -> descendant in tree (from graph)
+
+
+3. BACK EDGE:
+	node -> ancestor in tree (from graph)
+	
+	* keep track of all the nodes currently in the recusrion stack
+	* follow the non-tree edge from the current node
+	* if it ends to a node already in the stack, we have a back-edge
+	  coz everyone is an ancestor
+	
+4. CROSS EDGE:
+	all others
+	-b/w 2 trees
+	-b/w 2 non ancestor related sub-trees/nodes
+	-b/w 2 siblings of a prent node
+	
+	
+NOTE:
+Undirected graphs can only have TREE and BACKWARD edges.
+* Tree edges are vital (used to visit new edges)
+* Fwd edges can't exist as in undirected graph, once you visit the final
+  node which TO which the _expected_ fwd edge conects, you will go back
+  on that edge as it is undirected, thus visiting the initial edge.
+  This is, in fact, a BACK edge.
+* Back edges as defined above, every non tree edge is a back edge as all
+  the other nodes can be ancestors to the current node as there is no
+  directionality.
+* Cross edges don't exist for the same reason as why fwd edges don't
+  exist. The edge b/w 2 siblings of a parent node can be traversed in
+  either way, making it a back edge again.
