@@ -8,9 +8,7 @@ graph = {'a': {'b': 1},
 # 1 level in gives dict of neighbours
 # 2 levels in gives distance always
 
-# For any directed edge `v -> w`, `G[v][w]`
-# is the length of the edge from `v` to `w`.
-
+# G[v][w] gives the weight of edge from v -> w
 
 def dijkstra(G, src, dst=None):
     inf = float('inf')
